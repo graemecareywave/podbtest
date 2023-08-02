@@ -1,0 +1,15 @@
+# Distribution / Packages
+downloads/
+lib/
+lib64/
+var/
+MANIFEST
+dist/
+build/
+.Python
+
+# Compiled / optimized / DLL files
+__pycache__/
+*.py
+*.py.class
+

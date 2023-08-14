@@ -1,0 +1,8 @@
+sample_dashboards:
+  -
+    category: Apigee
+    id: hybrid-infrastructure-monitoring
+    display_name: Apigee Hybrid Infrastructure Monitoring
+    description: |-
+      This dashboard is for [Apigee Hybrid](https://cloud.google.com/apigee/hybrid). 
+      This dashboard has 4 charts to display Kubernetes pod and container metrics. The metrics include CPU limit utilization, Memory limit utilization, Restart count, Network Received Bytes, etc.

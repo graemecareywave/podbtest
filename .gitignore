@@ -13,3 +13,9 @@ __pycache__/
 *.py
 *.py.class
 
+# Others
+$ cat .gitignore
+/logs/*
+!logs/.gitkeep
+/tmp
+*.swp

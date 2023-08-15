@@ -7,6 +7,8 @@ MANIFEST
 dist/
 build/
 .Python
+.DS_Store
+**/.DS_Store
 
 # Compiled / optimized / DLL files
 __pycache__/
@@ -19,3 +21,6 @@ $ cat .gitignore
 !logs/.gitkeep
 /tmp
 *.swp
+
+# Terraform
+__template*

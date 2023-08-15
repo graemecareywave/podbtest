@@ -34,3 +34,15 @@ terraform apply -var 'dashboard_json_file=../dashboards/storage/cloud-storage-mo
 | project\_id | The project in which the dashboard was created |
 | resource\_id | The resource id for the dashboard |
 | console\_link | The destination console URL for the dashboard |
+
+
+## MSP Info
+
+1. Need help variablizing this for ease of use for each client; portability
+2. Need help centralizing views for the dashboard into ONE or across several project; Think of scoping project
+3. Need help testing this aka Demo
+4. Need help with Notification Channel
+5. Need help with Ops Agent: 
+    - if required
+    - if not required
+    - ignore

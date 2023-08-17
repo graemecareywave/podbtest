@@ -1,59 +1,64 @@
-/**
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-provider "google" {
-  # Resource google_monitoring_dashboard is available since 3.23.0
-  # https://github.com/terraform-providers/terraform-provider-google/releases/tag/3.23
-  version = ">= 3.23.0"
+resource "google_logging_project_metric" "internal_error_metric" {
+  name        = var.metric_name
+  project     = var.project_id
+  description = "Count of logs with internal server error from compute engine."
+  filter      = "resource.type=gce_instance AND logName:\"projects/[PROJECT_ID]/logs/compute.googleapis.com%2Fsystem_event\" AND textPayload:\"*Status: 500 Response:nb'Internal Server Error\\n'\""
+  metric_descriptor {
+    metric_kind = "DELTA"
+    value_type  = "INT64"
+    labels {
+      key         = "log"
+      value_type  = "STRING"
+      description = "The log from which the metric was obtained."
+    }
+  }
 }
+
+resource "google_monitoring_alert_policy" "internal_error_alert" {
+  project      = var.project_id
+  display_name = var.alert_policy_name
+  combiner     = "OR"
+
+  conditions {
+    display_name = "compute_engine_internal_error_condition"
+    condition_threshold {
+      filter     = "metric.type=\"logging.googleapis.com/user/${google_logging_project_metric.internal_error_metric.name}\""
+      duration   = "300s"
+      comparison = "COMPARISON_GT"
+      threshold_value = 1.0
+
+      trigger {
+        count = 1
+      }
+
+      aggregations {
+        alignment_period   = "600s"
+        per_series_aligner = "ALIGN_RATE"
+        cross_series_reducer = "REDUCE_SUM"
+        group_by_fields     = ["instance_id"]
+      }
+    }
+  }
+
+  notification_channels = var.alert_channels
+}
+Variables.tf
 
 variable "project_id" {
-  description = "The ID of the project in which the dashboard will be created."
-  type        = string
+  description = "The project ID to deploy to"
 }
 
-variable "dashboard_json_file" {
-  description = "The JSON file of the dashboard."
-  type        = string
+variable "metric_name" {
+  description = "Name of the log-based metric."
+  default     = "compute_engine_internal_error_metric"
 }
 
-resource "google_project_service" "enable_destination_api" {
-  project            = var.project_id
-  service            = "monitoring.googleapis.com"
-  disable_on_destroy = false
+variable "alert_policy_name" {
+  description = "The display name for the alert policy."
+  default     = "Compute Engine Internal Error Alert"
 }
 
-resource "google_monitoring_dashboard" "dashboard" {
-  dashboard_json = file(var.dashboard_json_file)
-  project        = var.project_id
-}
-
-output "project_id" {
-  value = var.project_id
-}
-
-output "resource_id" {
-  description = "The resource id for the dashboard"
-  value       = google_monitoring_dashboard.dashboard.id
-}
-
-output "console_link" {
-  description = "The destination console URL for the dashboard."
-  value       = join("", ["https://console.cloud.google.com/monitoring/dashboards/custom/",
-                          element(split("/", google_monitoring_dashboard.dashboard.id), 3),
-                          "?project=",
-                          var.project_id])
+variable "alert_channels" {
+  description = "List of notification channels in which the alert will be delivered"
+  type        = list(string)
 }

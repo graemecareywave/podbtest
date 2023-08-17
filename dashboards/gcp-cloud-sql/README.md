@@ -2,7 +2,7 @@
 
 #### Notes
 
-- These dashboards are based on Google Cloud monitoring solutions.
+- These dashboards are based on Google Cloud SQL monitoring solutions.
 
 |CloudSQL - General|
 |:------------------|

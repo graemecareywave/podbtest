@@ -1,1 +1,1 @@
-# Alert Policy Templates for the Cloud Alerting Team
+# Alert Policy Templates for a Cloud Support Team

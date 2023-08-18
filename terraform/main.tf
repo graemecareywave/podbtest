@@ -1,3 +1,12 @@
+provider "google" {
+  # Resource google_monitoring_dashboard is available since 3.23.0
+  # https://github.com/terraform-providers/terraform-provider-google/releases/tag/3.23
+  version = ">= 3.23.0"
+  source = "hashicorp/google"
+  project = "starry-diode-376414"
+  region  = "us-central1"
+}
+
 resource "google_logging_project_metric" "internal_error_metric" {
   name        = var.metric_name
   project     = var.project_id

@@ -57,3 +57,14 @@ output "console_link" {
                           "?project=",
                           var.project_id])
 }
+
+/*
+# modular for branching a monitoring module
+
+module "project_info" {
+  source = "terraform.#####.#####/location/project-info/enterprise"
+
+  project_info = var.project_info
+  
+}
+*/

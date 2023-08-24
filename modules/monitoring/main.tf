@@ -46,6 +46,14 @@ resource "google_monitoring_alert" "MSP Apigee MIG Alert Policy" {
     content = "MSP to review MIG, LB, and Backend Services"
   }
 
+  alert_strategy {
+    auto_close = "86400"
+    notification_rate_limit =
+      {
+        period = "1800s"
+      }
+  }
+
   notification_channels = [data.google_monitoiring_notification_channel.netcool_email.name]
     display_name = "Netcool"
   # notification_channels = local.notification_channels

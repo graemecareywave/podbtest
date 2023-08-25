@@ -19,27 +19,19 @@ provider "google" {
   # https://github.com/terraform-providers/terraform-provider-google/releases/tag/3.23
   version = ">= 3.23.0"
 }
-
-variable "project_id" {
-  description = "The ID of the project in which the dashboard will be created."
-  type        = string
-}
-
-variable "dashboard_json_file" {
-  description = "The JSON file of the dashboard."
-  type        = string
-}
-
 resource "google_project_service" "enable_destination_api" {
   project            = var.project_id
   service            = "monitoring.googleapis.com"
   disable_on_destroy = false
 }
 
+/* 
+# These are the default availbale dashboard views; not custom
 resource "google_monitoring_dashboard" "dashboard" {
   dashboard_json = file(var.dashboard_json_file)
   project        = var.project_id
 }
+*/
 
 output "project_id" {
   value = var.project_id

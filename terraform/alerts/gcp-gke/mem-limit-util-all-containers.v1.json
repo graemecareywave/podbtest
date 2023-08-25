@@ -30,5 +30,9 @@
       "autoClose": "604800s"
     },
     "combiner": "OR",
-    "enabled": true
+    // Temporarly while researching use case per workload or GCP service
+    "enabled": false,
+    // IDs of the Notification Channels or fully qualified identifiers for the Notification Channels.
+    // To set the notification_channels attribute:
+    "notificationChannels": []
   }

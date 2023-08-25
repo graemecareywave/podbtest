@@ -48,9 +48,8 @@ resource "google_monitoring_alert" "MSP Apigee MIG Alert Policy" {
 
   alert_strategy {
     auto_close = "86400"
-    notification_rate_limit =
-      {
-        period = "1800s"
+    notification_rate_limit {
+      period = "300s"
       }
   }
 

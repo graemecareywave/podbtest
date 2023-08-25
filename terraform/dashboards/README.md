@@ -68,3 +68,19 @@ The dashboard object is described by the following values:
 ### Update README
 
 Please also update the README.md file in the same directory of your dashboard file.
+
+### For MSP
+
+You can deploy these dashboards individually through the GCP Console.
+  1. GCP Console > Monitoring Project
+  2. Select Dashboard
+  3. Create Dashboard
+  4. Select the Dashboard Setting option > JSON > JSON Editor
+  5. Copy code into Editor
+  6. Edit to meed the needs of client/support
+
+You can deploy alerts very similarily if you have access through the GCP Console CLI or CLI.
+  1. Ensure you have alpha components installed
+    a. gcloud components install alpha
+  2. Through your CLI method, run the similar command to add your Alert Policy
+    a. example: gcloud alpha monitoring policies create --policy-from-file=nameOfAlertPolicyHere.v1.json

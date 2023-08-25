@@ -42,6 +42,7 @@ output "resource_id" {
   value       = google_monitoring_dashboard.dashboard.id
 }
 
+/*
 output "console_link" {
   description = "The destination console URL for the dashboard."
   value       = join("", ["https://console.cloud.google.com/monitoring/dashboards/custom/",
@@ -49,6 +50,7 @@ output "console_link" {
                           "?project=",
                           var.project_id])
 }
+*/
 
 /*
 # modular for branching a monitoring module

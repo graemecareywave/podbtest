@@ -1,1 +1,0 @@
-# Alert Policy Templates for an Application Integration product

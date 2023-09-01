@@ -1,1 +1,0 @@
-# Alert Policy Templates for the Cloud GKE product

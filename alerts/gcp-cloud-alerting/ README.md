@@ -1,1 +1,0 @@
-# Alert Policy Templates for a Cloud Support Team

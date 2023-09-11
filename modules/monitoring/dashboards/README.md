@@ -1,0 +1,1 @@
+## This structure mimics client
